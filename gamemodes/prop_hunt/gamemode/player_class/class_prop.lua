@@ -52,7 +52,7 @@ function CLASS:OnSpawn(pl)
 	
 			timer.Simple(1, checkForceTaunt)
 		end
-		timer.Simple(30 + PropHunt.ForceTauntInterval, checkForceTaunt)
+		timer.Simple(30 + math.random(0, PropHunt.ForceTauntInterval * 2), checkForceTaunt)
 	end
 end
 

@@ -16,6 +16,9 @@ PropHunt.UnlimitedGrenades = false
 // Seconds to run before the round starts
 PropHunt.PreStartTime = 45
 
+PropHunt.ForceTaunt = true
+PropHunt.ForceTauntInterval = 30
+
 // Model for hunters
 PropHunt.HunterModel = "models/player/combine_super_soldier.mdl"
 
