@@ -22,14 +22,18 @@ function PANEL:Init()
 	self.ctrlList:EnableVerticalScrollbar()
 	
 	self.Peeps = {}
+	local plys = player.GetAll()
 	
 	for i =1, game.MaxPlayers() do
 	
 		self.Peeps[i] = vgui.Create( "DImage", self.ctrlList:GetCanvas() )
+		--self.Peeps[i] = vgui.Create( "AvatarImage", self.ctrlList:GetCanvas() )
 		self.Peeps[i]:SetSize( 16, 16 )
 		self.Peeps[i]:SetZPos( 1000 )
 		self.Peeps[i]:SetVisible( false )
 		self.Peeps[i]:SetImage( "icon16/emoticon_smile.png" )
+		--self.Peeps[i]:SetPlayer( plys[i] )
+
 	
 	end
 

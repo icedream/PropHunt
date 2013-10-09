@@ -7,39 +7,6 @@
 
 local g_PlayableGamemodes = {}
 
-fretta_votesneeded = CreateConVar( "fretta_votesneeded", "0.75", { FCVAR_ARCHIVE } )
-fretta_votetime = CreateConVar( "fretta_votetime", "20", { FCVAR_ARCHIVE } )
-fretta_votegraceperiod = CreateConVar( "fretta_votegraceperiod", "30", { FCVAR_ARCHIVE } )
-
-
-local function SendAvailableGamemodes( ply )
-
-	net.Start("PlayableGamemodes")
-		net.WriteTable(g_PlayableGamemodes)
-	net.Send(ply)
-	
-end
-
-function GetRandomGamemodeName()
-
-	return table.Random( g_PlayableGamemodes ).name
-	
-end
-
-function GetRandomGamemodeMap( gm )
-
-	return table.Random( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
-	
-end
-
-function GetNumberOfGamemodeMaps( gm )
-
-	return table.Count( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
-	
-end
-
-hook.Add( "PlayerInitialSpawn", "SendAvailableGamemodes", SendAvailableGamemodes ) 
-
 
 local AllMaps = file.Find( "maps/*.bsp", "GAME" )
 for key, map in pairs( AllMaps ) do
@@ -59,6 +26,7 @@ for _, gm in pairs( engine.GetGamemodes() ) do
 		
 			g_PlayableGamemodes[ gm.name ] = {}
 			g_PlayableGamemodes[ gm.name ].name = gm.title
+			g_PlayableGamemodes[ gm.name ].id = gm.name
 			g_PlayableGamemodes[ gm.name ].label = info.title
 			g_PlayableGamemodes[ gm.name ].description = info.description
 			g_PlayableGamemodes[ gm.name ].author = info.author_name
@@ -97,6 +65,42 @@ for _, gm in pairs( engine.GetGamemodes() ) do
 end
 
 GameModes = nil
+
+
+fretta_votesneeded = CreateConVar( "fretta_votesneeded", "0.515", { FCVAR_ARCHIVE } )
+fretta_votetime = CreateConVar( "fretta_votetime", "20", { FCVAR_ARCHIVE } )
+fretta_votegraceperiod = CreateConVar( "fretta_votegraceperiod", "30", { FCVAR_ARCHIVE } )
+
+function GetRandomGamemodeName()
+
+	return table.Random( g_PlayableGamemodes ).id
+	
+end
+
+function GetRandomGamemodeMap( gm )
+
+	return table.Random( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
+	
+end
+
+function GetNumberOfGamemodeMaps( gm )
+
+	print(gm or GAMEMODE.FolderName)
+	print(g_PlayableGamemodes[ gm or GAMEMODE.FolderName ])
+	return table.Count( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
+	
+end
+
+
+local function SendAvailableGamemodes( ply )
+
+	net.Start("PlayableGamemodes")
+		net.WriteTable(g_PlayableGamemodes)
+	net.Send(ply)
+	
+end
+
+hook.Add( "PlayerInitialSpawn", "SendAvailableGamemodes", SendAvailableGamemodes ) 
 
 function GM:IsValidGamemode( gamemode, map )
 
@@ -233,25 +237,29 @@ end
 
 function GM:StartGamemodeVote()
 
+	print( table.Count(engine.GetGamemodes()) )
+
 	if( !GAMEMODE.m_bVotingStarted ) then
 	
-		if ( fretta_voting:GetBool() ) then
+		if ( fretta_voting:GetBool() && table.Count(g_PlayableGamemodes) > 1 ) then
 
 			GAMEMODE:ClearPlayerWants()
 			BroadcastLua( "GAMEMODE:ShowGamemodeChooser()" );
 			SetGlobalBool( "InGamemodeVote", true )
+		
+			timer.Simple( fretta_votetime:GetFloat(), function() GAMEMODE:FinishGamemodeVote( true ) end )
+			SetGlobalFloat( "VoteEndTime", CurTime() + fretta_votetime:GetFloat() )
+		
+			GAMEMODE.m_bVotingStarted = true;
 			
 		else
+
+			SetGlobalBool( "InGamemodeVote", false )
 
 			GAMEMODE.WinningGamemode = GAMEMODE.FolderName
 			return GAMEMODE:StartMapVote()
 			
 		end
-		
-		timer.Simple( fretta_votetime:GetFloat(), function() GAMEMODE:FinishGamemodeVote( true ) end )
-		SetGlobalFloat( "VoteEndTime", CurTime() + fretta_votetime:GetFloat() )
-		
-		GAMEMODE.m_bVotingStarted = true;
 		
 	end
 
@@ -259,15 +267,25 @@ end
 
 function GM:StartMapVote()
 	
-	// If there's only one map, let the 'random map' thing choose it
-	if ( GetNumberOfGamemodeMaps( GAMEMODE.WinningGamemode ) == 1 ) then
-		return GAMEMODE:FinishMapVote( true )
-	end		
-		
-	BroadcastLua( "GAMEMODE:ShowMapChooserForGamemode( \""..GAMEMODE.WinningGamemode.."\" )" );	
-	timer.Simple( fretta_votetime:GetFloat(), function() GAMEMODE:FinishMapVote() end )
-	SetGlobalFloat( "VoteEndTime", CurTime() + fretta_votetime:GetFloat() )
+	GAMEMODE:ClearPlayerWants()
 
+	if( fretta_voting:GetBool() && !GAMEMODE.m_bVotingStarted ) then
+	
+		if ( GetNumberOfGamemodeMaps( GAMEMODE.WinningGamemode ) > 1 ) then
+
+			GAMEMODE:ClearPlayerWants()
+			SetGlobalBool( "InGamemodeVote", true )
+			BroadcastLua( "GAMEMODE:ShowMapChooserForGamemode( \""..GAMEMODE.WinningGamemode.."\" )" );	
+			timer.Simple( fretta_votetime:GetFloat(), function() GAMEMODE:FinishMapVote() end )
+			SetGlobalFloat( "VoteEndTime", CurTime() + fretta_votetime:GetFloat() )	
+	
+			GAMEMODE.m_bVotingStarted = true;
+			
+		else
+			return GAMEMODE:FinishMapVote( true )
+		end
+		
+	end
 end
 
 function GM:GetWinningWant()
@@ -283,7 +301,11 @@ function GM:GetWinningWant()
 		end
 		
 	end
-	
+
+	local hasVotes = table.Count(Votes)
+
+	if (hasVotes == 0) then return nil end	
+
 	return table.GetWinningKey( Votes )
 	
 end
@@ -298,7 +320,10 @@ function GM:WorkOutWinningGamemode()
 	end
 
 	local winner = GAMEMODE:GetWinningWant()
-	if ( !winner ) then return GetRandomGamemodeName() end
+	if ( winner == nil ) then
+		print("No votes, selecting random gamemode.")
+		return GetRandomGamemodeName()
+	end
 	
 	return winner
 	
@@ -309,7 +334,7 @@ function GM:GetWinningMap( WinningGamemode )
 	if ( GAMEMODE.WinningMap ) then return GAMEMODE.WinningMap end
 
 	local winner = GAMEMODE:GetWinningWant()
-	if ( !winner ) then return GetRandomGamemodeMap( GAMEMODE.WinningGamemode ) end
+	if ( winner == nil ) then return GetRandomGamemodeMap( GAMEMODE.WinningGamemode ) end
 	
 	return winner
 	
@@ -318,7 +343,7 @@ end
 function GM:FinishGamemodeVote()
 	
 	GAMEMODE.WinningGamemode = GAMEMODE:WorkOutWinningGamemode()
-	GAMEMODE:ClearPlayerWants()
+	--GAMEMODE:ClearPlayerWants()
 	
 	// Send bink bink notification
 	BroadcastLua( "GAMEMODE:GamemodeWon( '"..GAMEMODE.WinningGamemode.."' )" );
@@ -326,6 +351,8 @@ function GM:FinishGamemodeVote()
 	// Start map vote..
 	timer.Simple( 2, function() GAMEMODE:StartMapVote() end )
 	
+	--SetGlobalBool( "InGamemodeVote", false )
+
 end
 
 function GM:FinishMapVote()
@@ -335,6 +362,9 @@ function GM:FinishMapVote()
 	
 	// Send bink bink notification
 	BroadcastLua( "GAMEMODE:ChangingGamemode( '"..GAMEMODE.WinningGamemode.."', '"..GAMEMODE.WinningMap.."' )" );
+	
+	--SetGlobalBool( "InGamemodeVote", false )
+
 
 	// Start map vote?
 	timer.Simple( 3, function() GAMEMODE:ChangeGamemode() end )

@@ -66,8 +66,27 @@ function PANEL:AddItem( item, relative, pos )
 
 end
 
+function PANEL:RemoveItem( item )
+	local itemID = 0
+
+	if (!item || !item:IsValid()) then return end
+
+	for k, v in pairs(self.Items) do
+		if(v == item) then
+			itemID = k
+		end
+	end
+
+	table.remove( self.Items, itemID )
+	item:Remove()
+	self:InvalidateLayout()
+
+end
+
+
 function PANEL:PositionItem( item )
 
+	if ( !item ) then return end
 	if ( item.Positioned ) then return end
 	if ( IsValid( item.HUDrelative ) && item != item.HUDrelative ) then self:PositionItem( item.HUDrelative ) end
 	
@@ -149,7 +168,7 @@ function PANEL:PerformLayout()
 	self:SetTall( ScrH() - 64 )
 
 	for k, item in pairs( self.Items ) do
-		item.Positioned = false
+		if ( item != nil ) then item.Positioned = false end
 	end
 	
 	for k, item in pairs( self.Items ) do

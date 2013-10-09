@@ -93,8 +93,14 @@ local vgui_Splash = vgui.RegisterTable( PANEL, "DButton" )
 
 function GM:ShowSplash()
 
-	local pnl = vgui.CreateFromTable( vgui_Splash )
-	pnl:MakePopup()
+	chat.AddText("")
+	chat.AddText("You are playing ", Color(255, 0, 0), GAMEMODE.Name, ",")
+	chat.AddText("a gamemode made by ", GAMEMODE.Author, "!")
+	chat.AddText("Have fun!")
+	chat.AddText("")
+
+	--local pnl = vgui.CreateFromTable( vgui_Splash )
+	--pnl:MakePopup()
 
 end
 

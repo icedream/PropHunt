@@ -22,20 +22,32 @@ function PANEL:AddItem( item )
 	item.m_bPartOfBar = true
 end
 
+function PANEL:RemoveItem( item )
+	local itemID = nil
+	for k, v in pairs( self.m_Items ) do
+		if ( v == item ) then
+			itemID = k
+		end
+	end
+	table.remove (self.m_Items, itemID)
+	item:Remove()
+	self:InvalidateLayout()
+end
+
 function PANEL:PerformLayout()
 
 	if ( self.m_Horizontal ) then
 	local x = self.m_Spacing
 	local tallest = 0
 	for k, v in pairs( self.m_Items ) do
-	
-		v:SetPos( x, 0 )
-		x = x + v:GetWide() + self.m_Spacing
-		tallest = math.max( tallest, v:GetTall() )
+		pcall(function()	
+			v:SetPos( x, 0 )
+			x = x + v:GetWide() + self.m_Spacing
+			tallest = math.max( tallest, v:GetTall() )
 		
-		if ( self.m_AlignBottom ) then v:AlignBottom() end
-		if ( self.m_AlignCenter ) then v:CenterVertical() end
-	
+			if ( self.m_AlignBottom ) then v:AlignBottom() end
+			if ( self.m_AlignCenter ) then v:CenterVertical() end
+		end)
 	end
 	self:SetSize( x, tallest )
 	else

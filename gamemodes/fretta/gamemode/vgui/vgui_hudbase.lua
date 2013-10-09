@@ -8,8 +8,8 @@ function PANEL:Init()
 
 	self:SetText( "-" )
 	self:SetTextColor( self:GetDefaultTextColor() )
-	self:SetFont( "FHUDElement" )
-
+	//self:SetFont( "FHUDElement" )
+	self:SetFont( "DermaLarge" )
 	self:ChooseParent()
 	
 end
@@ -33,7 +33,8 @@ function PANEL:GetTextLabelColor()
 end
 
 function PANEL:GetTextLabelFont()
-	return "HudSelectionText"
+	//return "HudSelectionText"
+	return "DermaDefault"
 end
 
 function PANEL:Paint()

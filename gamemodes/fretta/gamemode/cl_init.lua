@@ -177,7 +177,7 @@ function GM:TeamChangeNotification( ply, oldteam, newteam )
 			chat.AddText( oldTeamColor, nick, color_white, " joined ", newTeamColor, newTeamName );
 		end
 		
-		chat.PlaySound( "buttons/button15.wav" );
+		surface.PlaySound( "ui/hint.wav" );
 	end
 end
 usermessage.Hook( "fretta_teamchange", function( um )  if( GAMEMODE && um ) then  GAMEMODE:TeamChangeNotification( um:ReadEntity(), um:ReadShort(), um:ReadShort() ) end end )

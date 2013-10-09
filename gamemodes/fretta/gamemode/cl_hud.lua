@@ -16,6 +16,10 @@ function GM:AddHUDItem( item, pos, parent )
 	hudScreen:AddItem( item, parent, pos )
 end
 
+function GM:RemoveHUDItem( item )
+	hudScreen:RemoveItem( item )
+end
+
 function GM:HUDNeedsUpdate()
 
 	if ( !IsValid( LocalPlayer() ) ) then return false end
@@ -162,10 +166,11 @@ function GM:UpdateHUD_Dead( bWaitingToSpawn, InRound )
 		local RoundTimer = vgui.Create( "DHudCountdown" );
 			RoundTimer:SizeToContents()
 			RoundTimer:SetValueFunction( function() 
-											if ( GetGlobalFloat( "RoundStartTime", 0 ) > CurTime() ) then return GetGlobalFloat( "RoundStartTime", 0 )  end 
-											return GetGlobalFloat( "RoundEndTime" ) end )
+				if ( GetGlobalFloat( "RoundStartTime", 0 ) > CurTime() ) then return GetGlobalFloat( "RoundStartTime", 0 )  end 
+				return GetGlobalFloat( "RoundEndTime" )
+			end )
 			RoundTimer:SetLabel( "TIME" )
-		GAMEMODE:AddHUDItem( RoundTimer, 8 )
+			GAMEMODE:AddHUDItem( RoundTimer, 8 )
 		return
 	
 	end
@@ -214,8 +219,9 @@ function GM:UpdateHUD_Alive( InRound )
 			local RoundTimer = vgui.Create( "DHudCountdown" );
 				RoundTimer:SizeToContents()
 				RoundTimer:SetValueFunction( function() 
-												if ( GetGlobalFloat( "RoundStartTime", 0 ) > CurTime() ) then return GetGlobalFloat( "RoundStartTime", 0 )  end 
-												return GetGlobalFloat( "RoundEndTime" ) end )
+					if ( GetGlobalFloat( "RoundStartTime", 0 ) > CurTime() ) then return GetGlobalFloat( "RoundStartTime", 0 )  end 
+					return GetGlobalFloat( "RoundEndTime" )
+				end )
 				RoundTimer:SetLabel( "TIME" )
 			Bar:AddItem( RoundTimer )
 
