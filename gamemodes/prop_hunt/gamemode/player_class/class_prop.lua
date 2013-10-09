@@ -41,18 +41,23 @@ function CLASS:OnSpawn(pl)
 	pl.last_taunt_time = 0
 
 	if PropHunt.ForceTaunt && PropHunt.ForceTauntInterval > 0 then
-		local checkForceTaunt = function()
-			if !pl || !pl:IsValid() || !pl:IsAlive() then
+		GAMEMODE:LogO("Prepared force taunt.", "CLASS:OnSpawn", pl)
+
+		pl.func_forcetaunt = function()
+			if !pl || !pl["IsValid"] || !pl:IsValid() || !pl:Alive() then
+				GAMEMODE:LogO("Forcetaunt: player is not okay. Will not repeat.", "pl.func_forcetaunt", pl)
+
 				return
 			end
 	
 			if CurTime() - pl.last_taunt_time >= PropHunt.ForceTauntInterval then
 				GAMEMODE:ShowSpare1(pl)
+				GAMEMODE:LogO("Forcetaunt: triggered.", "pl.func_forcetaunt", pl)
 			end
-	
-			timer.Simple(1, checkForceTaunt)
+
+			timer.Simple(1, pl.func_forcetaunt)
 		end
-		timer.Simple(30 + math.random(0, PropHunt.ForceTauntInterval * 2), checkForceTaunt)
+		timer.Simple(PropHunt.ForceTauntAfter + math.random(0, PropHunt.ForceTauntInterval), pl.func_forcetaunt)
 	end
 end
 

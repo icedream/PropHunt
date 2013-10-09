@@ -18,6 +18,7 @@ PropHunt.PreStartTime = 45
 
 PropHunt.ForceTaunt = true
 PropHunt.ForceTauntInterval = 30
+PropHunt.ForceTauntAfter = PropHunt.ForceTauntInterval *2
 
 // Model for hunters
 PropHunt.HunterModel = "models/player/combine_super_soldier.mdl"
