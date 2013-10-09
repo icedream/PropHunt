@@ -78,5 +78,5 @@ function PlayerExt:EmitPropSound(sound)
 	end
 
 	GAMEMODE:LogO("Playing sound "..sound, "PlayerExt:EmitPropSound", self)
-	self.ph_prop:EmitSound(sound)
+	self.ph_prop:EmitSound(sound, 150)
 end

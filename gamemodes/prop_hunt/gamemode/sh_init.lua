@@ -9,7 +9,6 @@ PropHunt.Sounds.Taunt = {}
 PropHunt.Sounds.Death = {}
 
 // Include the required lua files
-include("sh_fonts.lua")
 include("sh_config.lua")
 PropHunt.BlindLockTime = PropHunt.BlindLockTime + 1
 include("sh_convars.lua")

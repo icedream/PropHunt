@@ -1,0 +1,3 @@
+- BUG: No death sound playing for normally dying props
+- FEATURE: Disable special props for only the first 2 minutes of round
+- FEATURE: Auto-taunt every X seconds

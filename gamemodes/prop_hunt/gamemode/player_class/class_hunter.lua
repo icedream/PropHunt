@@ -15,7 +15,8 @@ CLASS.Weapons				= {
 						"weapon_crowbar", -- Crowbar
 						"weapon_frag", -- Frag Grenade
 						"bf3m4a1", -- M4A1 rifle
-						"kermite_shot_winch1300", -- Winchester 1300 shotgun
+						//"kermite_shot_winch1300", -- Winchester 1300 shotgun
+						"weapon_shotgun",
 						"bf3m1911", -- M1911 pistol
 					  }
 

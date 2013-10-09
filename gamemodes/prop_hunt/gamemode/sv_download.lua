@@ -3,6 +3,7 @@
 AddCSLuaFile("cl_gamemode.lua")
 AddCSLuaFile("cl_hooks.lua")
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("cl_fonts.lua")
 -- shared lua
 AddCSLuaFile("sh_config.lua") // Separate from sh_config.lua so it doesn't get removed accidentally
 AddCSLuaFile("sh_init.lua")
