@@ -14,7 +14,7 @@ CLASS.TauntSounds			= PropHunt.Sounds.Taunt.Hunters
 CLASS.Weapons				= {
 						"weapon_crowbar", -- Crowbar
 						"weapon_frag", -- Frag Grenade
-						"bf3p90", -- BF3 P90
+						"bf3m16", -- BF3 M16A3
 						//"kermite_shot_winch1300", -- Winchester 1300 shotgun
 						"weapon_shotgun",
 						"bf3m1911", -- BF3 M1911 pistol

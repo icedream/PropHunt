@@ -8,6 +8,7 @@ CLASS.CrouchedWalkSpeed			= 0.2
 CLASS.RunSpeed				= 300
 CLASS.DuckSpeed				= 0.2
 CLASS.DrawTeamRing			= false
+CLASS.DrawViewModel			= false
 CLASS.FullRotation			= false
 CLASS.JumpPower				= 200
 CLASS.DeathSounds			= PropHunt.Sounds.Death.Props
@@ -39,6 +40,20 @@ function CLASS:OnSpawn(pl)
 	// Reset taunt time
 	pl.last_taunt_time = 0
 
+	if PropHunt.ForceTaunt && PropHunt.ForceTauntInterval > 0then
+		local checkForceTaunt = function()
+			if !pl || !pl:IsValid() || !pl:IsAlive() then
+				return
+			end
+	
+			if CurTime() - pl.last_taunt_time >= PropHunt.ForceTauntInterval then
+				GAMEMODE:ShowSpare1(pl)
+			end
+	
+			timer.Simple(1, checkForceTaunt)
+		end
+		timer.Simple(30 + PropHunt.ForceTauntInterval, checkForceTaunt)
+	end
 end
 
 // Called when a player dies with this class
