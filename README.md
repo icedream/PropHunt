@@ -1,4 +1,4 @@
-This fork of PropHunt is the edition by Icedream which is running on the insane-Heroes Prop Hunt servers!
+This is a partially incomplete fork of Prop Hunt by Icedream which is running on the insane-Heroes Prop Hunt servers!
 
 PropHunt plays much like a Hide and Seek. Players on the RED team, disguised as props, are given a 30 second set up time to hide, and afterwards players on the BLU team attempt to find and kill them in the allotted time period. At the end of each round the teams are swapped; the Hunters (BLU) become the Hunted (RED) and vice versa. Respawns are not permitted until the end of each round. 
 Originally made for TF2. 
@@ -46,3 +46,5 @@ Also these dependencies, but they _only need to be on the server_:
 _Important!_ Read the description of these dependencies so everything will be properly installed.
 
 _Important!_ Also change the player class files as they contain weapons from other addons. You might not want to use them. In the near future those will be configuration variables (see sh_config.lua).
+
+_Important!_ The initial configuration does not have working sounds, they are not delivered with this repository. You might want to change this manually.
