@@ -40,7 +40,7 @@ function CLASS:OnSpawn(pl)
 	// Reset taunt time
 	pl.last_taunt_time = 0
 
-	if PropHunt.ForceTaunt && PropHunt.ForceTauntInterval > 0then
+	if PropHunt.ForceTaunt && PropHunt.ForceTauntInterval > 0 then
 		local checkForceTaunt = function()
 			if !pl || !pl:IsValid() || !pl:IsAlive() then
 				return
