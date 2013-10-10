@@ -40,7 +40,7 @@ This mod requires this to be installed _on both, server and client_:
 
 - Garry's Mod 13 (of course) from Facepunch/Steam
 - Counter-Strike:Source(tm) from Valve/Steam
-- BF 3 SWEPs (for some reason download is only poorly implemented) from http://steamcommunity.com/sharedfiles/filedetails/?id=144579879&searchtext=SWEP
+- BF 3 SWEPs (for some reason download is only poorly implemented) from http://steamcommunity.com/sharedfiles/filedetails/?id=144579879
 	- I rather encourage you to edit the server files so they add download possibilities.
 
 _Important!_ Read the description of these dependencies so everything will be properly installed.
