@@ -186,7 +186,8 @@ PropHunt.Sounds.Taunt.Props = {
 	"taunts/props/ih004B.mp3",
 	"taunts/props/ih004C.mp3",
 	"taunts/props/ih004D.mp3",
-
+	"taunts/props/ih004E.mp3",
+	"taunts/props/ih004F.mp3",
 	--"taunts/you_dont_know_the_power.mp3",
 	--"taunts/you_underestimate_the_power.mp3"
 }
