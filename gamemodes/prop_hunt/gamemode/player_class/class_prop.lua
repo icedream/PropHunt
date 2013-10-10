@@ -49,18 +49,19 @@ function CLASS:OnSpawn(pl)
 		pl.func_forcetaunt = function()
 
 			// check if player is fine for forcetaunting
-			if !pl || !pl["IsValid"] || !pl:IsValid() || !pl:Alive() || pl:Team() != PropHunt.TeamIDs.Hunters then
+			if !pl || !pl["IsValid"] || !pl:IsValid() || !pl:Alive() || pl:Team() != PropHunt.TeamIDs.Props then
 				GAMEMODE:LogO("Forcetaunt: player is not okay. Will not repeat.", "pl.func_forcetaunt", pl)
 				return
 			end
 
 			// check if player is moving away from place and if yes, reset "last_moving_time"
-			if pl.last_moving_pos:Distance(pl:GetPos()) > 10 then
+			local distance = pl.last_moving_pos:Distance(pl:GetPos())
+			if distance > 130 then
 				pl.last_moving_pos = pl:GetPos() // reset last position
 				pl.last_moving_time = CurTime()
 			end
 
-			local isCamping = CurTime() - pl.last_moving_time > 10;
+			local isCamping = CurTime() - pl.last_moving_time > 5;
 			
 			if (isCamping && CurTime() > pl.first_forcetaunt_run && PropHunt.ForceTauntIntervalForCampers > 0 && CurTime() - pl.last_taunt_time >= PropHunt.ForceTauntIntervalForCampers)
 			|| (!isCamping && CurTime() > pl.first_forcetaunt_run && PropHunt.ForceTauntInterval > 0 && CurTime() - pl.last_taunt_time >= PropHunt.ForceTauntInterval) then

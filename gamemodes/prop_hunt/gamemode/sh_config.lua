@@ -23,7 +23,7 @@ PropHunt.AllowOneSided = true
 PropHunt.ForceTaunt = true
 
 // The forcetaunt interval for all players except campers. 0 to disable.
-PropHunt.ForceTauntInterval = 35
+PropHunt.ForceTauntInterval = 30
 
 // The forcetaunt interval for campers in seconds. 0 to disable.
 PropHunt.ForceTauntIntervalForCampers = 15
