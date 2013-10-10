@@ -203,3 +203,6 @@ PropHunt.Sounds.Victory.Props = {
 
 // Victory sounds for props
 PropHunt.Sounds.Victory.Props = PropHunt.Sounds.Victory.Hunters // the same as hunters.
+
+// If you like glitchy blindness, go ahead. :P
+PropHunt.IWantGlitchyBlindness = false
