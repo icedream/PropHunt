@@ -178,7 +178,7 @@ function GM:Initialize()
 
 	util.AddNetworkString("PlayableGamemodes")
 	
-	// If we're round based, wait 45 seconds before the first round starts
+	// If we're round based, wait at least 45 seconds before the first round starts
 	if GAMEMODE.RoundBased then
 		timer.Simple(PropHunt.PreStartTime, function() GAMEMODE:StartRoundBasedGameIfPlayersAvailable() end)
 	end
@@ -186,13 +186,12 @@ function GM:Initialize()
 end
 
 function GM:StartRoundBasedGameIfPlayersAvailable()
+	local hasHunter = false
+	local hasProp = false
 	for _, ply in ipairs(player.GetAll()) do
-		if(ply:Team() == PropHunt.TeamIDs.Hunters
-		|| ply:Team() == PropHunt.TeamIDs.Props)
-		then
-			GAMEMODE:StartRoundBasedGame()
-			return
-		end
+		if ply:Team() == PropHunt.TeamIDs.Hunters then hasHunter = true end
+		if ply:Team() == PropHunt.TeamIDs.Props then hasProp = true end
+		if hasHunter && hasProp	then GAMEMODE:StartRoundBasedGame() return end
 	end
 	timer.Simple(5, function() GAMEMODE:StartRoundBasedGameIfPlayersAvailable() end)
 end
