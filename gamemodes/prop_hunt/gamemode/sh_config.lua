@@ -13,11 +13,19 @@ PropHunt.UnlimitedAmmo = true
 // Unlimited grenades
 PropHunt.UnlimitedGrenades = false
 
-// Seconds to run before the round starts
+// Seconds to run before the first round starts
 PropHunt.PreStartTime = 45
 
+// Enable regular force-taunting?
 PropHunt.ForceTaunt = true
-PropHunt.ForceTauntInterval = 30
+
+// The forcetaunt interval for all players except campers. 0 to disable.
+PropHunt.ForceTauntInterval = 35
+
+// The forcetaunt interval for campers in seconds. 0 to disable.
+PropHunt.ForceTauntIntervalForCampers = 15
+
+// Forcetaunt should only trigger X seconds after starting the round. 0 for insta-trigger.
 PropHunt.ForceTauntAfter = PropHunt.ForceTauntInterval *2
 
 // Model for hunters
