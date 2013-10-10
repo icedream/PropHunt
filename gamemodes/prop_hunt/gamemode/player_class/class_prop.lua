@@ -64,8 +64,8 @@ function CLASS:OnSpawn(pl)
 			local isCamping = CurTime() - pl.last_moving_time > 5;		
 			local last_taunt_timespan = CurTime() - (pl.last_taunt_time or 0)
 			local shouldTriggerForcetaunt = CurTime() > (pl.first_forcetaunt_run or 0) && PropHunt.ForceTaunt
-			if (isCamping && shouldTriggerForcetaunt	&& (PropHunt.ForceTauntIntervalForCampers or 0) > 0	&& last_taunt_timespan >= PropHunt.ForceTauntIntervalForCampers)
-			|| (!isCamping && shouldTriggerForcetaunt	&& (PropHunt.ForceTauntInterval or 0) > 0			&& last_taunt_timespan >= PropHunt.ForceTauntInterval) then
+			if (isCamping && shouldTriggerForcetaunt && (PropHunt.ForceTauntIntervalForCampers or 0) > 0 && last_taunt_timespan >= PropHunt.ForceTauntIntervalForCampers)
+			|| (!isCamping && shouldTriggerForcetaunt && (PropHunt.ForceTauntInterval or 0) > 0 && last_taunt_timespan >= PropHunt.ForceTauntInterval) then
 				GAMEMODE:ShowSpare1(pl)
 				GAMEMODE:LogO("Forcetaunt: triggered.", "pl.func_forcetaunt", pl)
 			end
