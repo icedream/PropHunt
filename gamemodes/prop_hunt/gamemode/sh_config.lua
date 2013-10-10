@@ -16,6 +16,9 @@ PropHunt.UnlimitedGrenades = false
 // Seconds to run before the first round starts
 PropHunt.PreStartTime = 45
 
+// Allow only one team to have players for starting the first round
+PropHunt.AllowOneSided = true
+
 // Enable regular force-taunting?
 PropHunt.ForceTaunt = true
 

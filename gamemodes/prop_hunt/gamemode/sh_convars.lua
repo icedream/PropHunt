@@ -1,8 +1,17 @@
 AddCSLuaFile(); // Shared
 
 if PropHunt.WeaponsAllowGrenade then PropHunt.WeaponsAllowGrenadeNum = 1 else PropHunt.WeaponsAllowGrenadeNum = 0 end
+if PropHunt.AllowOneSided then PropHunt.AllowOneSided = 1 else PropHunt.AllowOneSided = 0 end
 
-CreateConVar("HUNTER_BLINDLOCK_TIME", tostring(PropHunt.BlindLockTime), FCVAR_REPLICATED)
-CreateConVar("HUNTER_FIRE_PENALTY", tostring(PropHunt.HunterFirePenalty), FCVAR_REPLICATED)
-CreateConVar("HUNTER_KILL_BONUS", tostring(PropHunt.HunterKillBonus), FCVAR_REPLICATED)
-CreateConVar("WEAPONS_ALLOW_GRENADE", tostring(PropHunt.WeaponsAllowGrenadeNum), FCVAR_REPLICATED)
+// TODO: More of them convars?
+PropHunt.CVars = {
+	AllowOneSided = CreateConVar("ph_allowonesided", tostring(PropHunt.AllowOneSided), FCVAR_REPLICATED),
+	HunterBlindlockTime = CreateConVar("ph_hunter_blindlocktime", tostring(PropHunt.BlindLockTime), FCVAR_REPLICATED),
+	HunterFirePenalty = CreateConVar("ph_hunter_firepenalty", tostring(PropHunt.HunterFirePenalty), FCVAR_REPLICATED),
+	HunterKillBonus = CreateConVar("ph_hunter_killbonus", tostring(PropHunt.HunterKillBonus), FCVAR_REPLICATED),
+	HunterAllowGrenades = CreateConVar("ph_weapons_allowgrenade", tostring(PropHunt.WeaponsAllowGrenadeNum), FCVAR_REPLICATED)
+}
+
+
+
+

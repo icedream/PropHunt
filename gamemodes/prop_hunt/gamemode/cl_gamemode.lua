@@ -28,12 +28,12 @@ function GM:UpdateHUD_Dead( bWaitingToSpawn, InRound )
 		GAMEMODE:AddHUDItem(RoundTimer, 8)
 
 		-- Hunters will be unlocked and unblinded in...
-		local blindlock_time_left = (GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+		local blindlock_time_left = (PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
 		if blindlock_time_left >=1 then
 			PropHunt.GUI.ReleaseTimer = vgui.Create( "DHudCountdown" );
 			PropHunt.GUI.ReleaseTimer:SizeToContents()
 			PropHunt.GUI.ReleaseTimer:SetValueFunction( function()
-				local blindlock_time_left = (GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+				local blindlock_time_left = (PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
 				if blindlock_time_left < 1 && PropHunt.GUI.ReleaseTimer != nil then
 					GAMEMODE:RemoveHUDItem(PropHunt.GUI.ReleaseTimer)
 					PropHunt.GUI.ReleaseTimer = nil
@@ -86,12 +86,12 @@ function GM:UpdateHUD_Alive( InRound )
 	PropHunt.GUI.HUDBar:AddItem( RoundTimer )
 
 	-- Hunters will be unlocked and unblinded in...
-	local blindlock_time_left = (GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+	local blindlock_time_left = (PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
 	if blindlock_time_left >=1 then
 		PropHunt.GUI.ReleaseTimer = vgui.Create( "DHudCountdown" );
 		PropHunt.GUI.ReleaseTimer:SizeToContents()
 		PropHunt.GUI.ReleaseTimer:SetValueFunction( function()
-			local blindlock_time_left = (GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+			local blindlock_time_left = (PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
 			if blindlock_time_left < 1 && PropHunt.GUI.ReleaseTimer != nil then
 				GAMEMODE:AddPlayerAction("Hunters have been released and unblinded.")
 				--surface.PlaySound("ui/hint.wav")
@@ -101,7 +101,7 @@ function GM:UpdateHUD_Alive( InRound )
 				PropHunt.GUI.ReleaseTimerB = vgui.Create( "DHudUpdater" );
 				PropHunt.GUI.ReleaseTimerB:SizeToContents()
 				PropHunt.GUI.ReleaseTimerB:SetValueFunction( function()
-					local blindlock_time_left = (GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
+					local blindlock_time_left = (PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0))) + 1
 					if blindlock_time_left < -5 then
 						GAMEMODE:RemoveHUDItem( PropHunt.GUI.ReleaseTimerB )
 						PropHunt.GUI.ReleaseTimerB = nil

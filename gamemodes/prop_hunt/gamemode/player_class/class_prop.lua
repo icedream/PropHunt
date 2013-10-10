@@ -71,7 +71,7 @@ function CLASS:OnSpawn(pl)
 			timer.Simple(1, pl.func_forcetaunt)
 
 		end
-		timer.Create(1, pl.func_forcetaunt)
+		timer.Simple(1, pl.func_forcetaunt)
 	end
 end
 

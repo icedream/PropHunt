@@ -2,7 +2,7 @@
 hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", function(ent, dmginfo)
 	local att = dmginfo:GetAttacker()
 	if GAMEMODE:InRound() && ent && ent:GetClass() != "ph_prop" && !ent:IsPlayer() && att && att:IsPlayer() && att:Team() == PropHunt.TeamIDs.Hunters && att:Alive() then
-		att:SetHealth(att:Health() - GetConVar("HUNTER_FIRE_PENALTY"):GetInt())
+		att:SetHealth(att:Health() - PropHunt.CVars.HunterFirePenalty:GetInt())
 		if att:Health() <= 0 then
 			umsg.Start("PlayerPropSuicide") 
  			umsg.Entity(att)

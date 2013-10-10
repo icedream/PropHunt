@@ -34,7 +34,7 @@ function CLASS:Loadout(pl)
 	// Weapons
 	for _,w in ipairs(self.Weapons) do
 		// Check if weapon is a grenade and grenades are allowed first
-		if !string.find(w, "grenade") || !string.find(w, "flash") || !string.find(w, "frag") || GetConVar("WEAPONS_ALLOW_GRENADE"):GetBool() then
+		if !string.find(w, "grenade") || !string.find(w, "flash") || !string.find(w, "frag") || PropHunt.CVars.WeaponsAllowGrenade:GetBool() then
 			pl:Give(w)
 		end
 	end
@@ -56,7 +56,7 @@ end
 // Called when player spawns with this class
 function CLASS:OnSpawn(pl)
 
-	local unlock_time = math.Clamp(GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0)), 0, GetConVar("HUNTER_BLINDLOCK_TIME"):GetInt())
+	local unlock_time = math.Clamp(PropHunt.CVars.HunterBlindLockTime:GetInt() - (CurTime() - GetGlobalFloat("RoundStartTime", 0)), 0, PropHunt.CVars.HunterBlindLockTime:GetInt())
 	local unlock_timestamp = CurTime() + unlock_time
 
 	pl.func_ac_lock = function()
