@@ -1,0 +1,9 @@
+{
+	"title":		"Prop Hunt v3",
+	"type":			"gamemode",
+	"tags":			[ "fun", "comic" ],
+	
+	"ignore": [
+		"*.git*"
+	]
+}

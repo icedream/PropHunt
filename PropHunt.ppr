@@ -1,0 +1,102 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultDir=C:\program files (x86)\steam\steamapps\common\GarrysMod\garrysmod\addons\PropHunt
+DefaultCPIndex=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+Extensions=*.lua;*.md;*.txt;*.sh
+[Project tree]
+PropHunt
+	+PropHunt
+		+gamemodes
+			-fretta
+				-gamemode
+					-vgui
+						gamemodes\fretta\gamemode\vgui\vgui_gamenotice.lua
+						gamemodes\fretta\gamemode\vgui\vgui_hudbase.lua
+						gamemodes\fretta\gamemode\vgui\vgui_hudcommon.lua
+						gamemodes\fretta\gamemode\vgui\vgui_hudelement.lua
+						gamemodes\fretta\gamemode\vgui\vgui_hudlayout.lua
+						gamemodes\fretta\gamemode\vgui\vgui_scoreboard.lua
+						gamemodes\fretta\gamemode\vgui\vgui_scoreboard_small.lua
+						gamemodes\fretta\gamemode\vgui\vgui_scoreboard_team.lua
+						gamemodes\fretta\gamemode\vgui\vgui_vote.lua
+					gamemodes\fretta\gamemode\cl_deathnotice.lua
+					gamemodes\fretta\gamemode\cl_gmchanger.lua
+					gamemodes\fretta\gamemode\cl_help.lua
+					gamemodes\fretta\gamemode\cl_hud.lua
+					gamemodes\fretta\gamemode\cl_init.lua
+					gamemodes\fretta\gamemode\cl_notify.lua
+					gamemodes\fretta\gamemode\cl_scores.lua
+					gamemodes\fretta\gamemode\cl_selectscreen.lua
+					gamemodes\fretta\gamemode\cl_splashscreen.lua
+					gamemodes\fretta\gamemode\class_default.lua
+					gamemodes\fretta\gamemode\init.lua
+					gamemodes\fretta\gamemode\player_class.lua
+					gamemodes\fretta\gamemode\player_colours.lua
+					gamemodes\fretta\gamemode\player_extension.lua
+					gamemodes\fretta\gamemode\round_controller.lua
+					gamemodes\fretta\gamemode\shared.lua
+					gamemodes\fretta\gamemode\skin.lua
+					gamemodes\fretta\gamemode\sv_gmchanger.lua
+					gamemodes\fretta\gamemode\sv_spectator.lua
+					gamemodes\fretta\gamemode\utility.lua
+				gamemodes\fretta\fretta.txt
+			-prop_hunt
+				-entities
+					-entities
+						-ph_prop
+							gamemodes\prop_hunt\entities\entities\ph_prop\cl_init.lua
+							gamemodes\prop_hunt\entities\entities\ph_prop\init.lua
+							gamemodes\prop_hunt\entities\entities\ph_prop\shared.lua
+						gamemodes\prop_hunt\entities\entities\base_gmodentity.lua
+				-gamemode
+					-maps
+						gamemodes\prop_hunt\gamemode\maps\de_port.lua
+						gamemodes\prop_hunt\gamemode\maps\sv_de_port.lua
+					-player_class
+						gamemodes\prop_hunt\gamemode\player_class\class_hunter.lua
+						gamemodes\prop_hunt\gamemode\player_class\class_prop.lua
+					gamemodes\prop_hunt\gamemode\cl_fonts.lua
+					gamemodes\prop_hunt\gamemode\cl_gamemode.lua
+					gamemodes\prop_hunt\gamemode\cl_hooks.lua
+					gamemodes\prop_hunt\gamemode\cl_init.lua
+					gamemodes\prop_hunt\gamemode\init.lua
+					gamemodes\prop_hunt\gamemode\sh_config.lua
+					gamemodes\prop_hunt\gamemode\sh_convars.lua
+					gamemodes\prop_hunt\gamemode\sh_fretta.lua
+					gamemodes\prop_hunt\gamemode\sh_gamemode.lua
+					gamemodes\prop_hunt\gamemode\sh_init.lua
+					gamemodes\prop_hunt\gamemode\sh_map.lua
+					gamemodes\prop_hunt\gamemode\sh_player.lua
+					gamemodes\prop_hunt\gamemode\sv_constants.lua
+					gamemodes\prop_hunt\gamemode\sv_download.lua
+					gamemodes\prop_hunt\gamemode\sv_gamemode.lua
+					gamemodes\prop_hunt\gamemode\sv_hooks.lua
+					gamemodes\prop_hunt\gamemode\sv_init.lua
+					gamemodes\prop_hunt\gamemode\sv_player.lua
+				gamemodes\prop_hunt\prop_hunt.txt
+		LICENSE.txt
+		README.md
+[Open project files]
+0=..\disguise_swep\lua\weapons\disguise_swep\shared.lua
+1=compile.bat
+2=addon.json
+[Selected Project Files]
+Main=
+Selected=addon.json
+[..\disguise_swep\lua\weapons\disguise_swep\shared.lua]
+TopLine=98
+Caret=8,109
+[compile.bat]
+TopLine=1
+Caret=6,6
+[addon.json]
+TopLine=1
+Caret=1,1
