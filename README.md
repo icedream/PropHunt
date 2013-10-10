@@ -40,11 +40,8 @@ This mod requires this to be installed _on both, server and client_:
 
 - Garry's Mod 13 (of course) from Facepunch/Steam
 - Counter-Strike:Source(tm) from Valve/Steam
-
-Also these dependencies, but they _only need to be on the server_:
-
-- BF 3 SWEPs from http://steamcommunity.com/sharedfiles/filedetails/?id=144579879&searchtext=SWEP
-- Kermite's shotguns from http://steamcommunity.com/sharedfiles/filedetails/?id=182479704&searchtext=
+- BF 3 SWEPs (for some reason download is only poorly implemented) from http://steamcommunity.com/sharedfiles/filedetails/?id=144579879&searchtext=SWEP
+	o I rather encourage you to edit the server files so they add download possibilities.
 
 _Important!_ Read the description of these dependencies so everything will be properly installed.
 
