@@ -2,3 +2,5 @@
 - FEATURE: Disable special props for only the first X minutes of round
 - FEATURE: Disable special props for the last X minutes of round
 - FEATURE: Make this workshop-compatible. (Milestone)
+- FEATURE: Nagging about missing CS:S stuff.
+- FIX: Implement better prop hiding method, ideally making the player change itself. (Milestone)
