@@ -1,6 +1,15 @@
 // Called immediately after starting the gamemode 
 hook.Add("Initialize", "PH_Initialize", function() hullz = 80 end)
 
+// Called for blindness
+hook.Add("HUDPaint", "PH_Blindness", function()
+	-- Blind method #2, this fixes the glitches due to looking at void
+	if LocalPlayer():GetNWBool("blind", false) then
+		surface.SetDrawColor( 0, 0, 0, 255 )
+		surface.DrawRect( 0, 0, ScrW(), ScrH() )
+	end
+end)
+
 // Shows that a player has killed too many props
 usermessage.Hook("PlayerPropSuicide", function(um)
 	local pl = um:ReadEntity()
@@ -24,9 +33,6 @@ usermessage.Hook("ResetHull", function(um)
 		hullz = 80
 	end
 end)
-
-// Sets the local blind variable to be used in CalcView
-usermessage.Hook("SetBlind", function(um) blind = um:ReadBool() end)
 
 // Sets the player hull
 usermessage.Hook("SetHull", function(um)

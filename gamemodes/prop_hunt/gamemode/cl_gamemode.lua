@@ -124,16 +124,13 @@ end
 function GM:CalcView(pl, origin, angles, fov)
 	local view = {} 
 	
-	if blind then
+	if LocalPlayer():GetNWBool("blind", false) then
 		-- Blind method #1
 		view.origin = Vector(20000, 0, 0)
 		view.angles = Angle(0, 0, 0)
 		view.fov = fov
 
-		-- Blind method #2
-                surface.SetDrawColor( 0, 0, 0, 255 )
-                surface.DrawRect( 0, 0, ScrW(), ScrH() )
-
+		-- Blind method #2 is used as hook in cl_hooks.lua
 		return view
 	end
 	
