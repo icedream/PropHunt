@@ -61,8 +61,6 @@ function CLASS:OnSpawn(pl)
 
 	pl.func_ac_lock = function()
 		if !!pl && pl:IsValid() && pl:Alive() && unlock_timestamp > CurTime() then
-			/*pl:Blind(true)
-			pl:Lock()*/
 			timer.Simple(1, pl.func_ac_lock)
 		elseif pl:IsValid() then
 			pl:Blind(false)

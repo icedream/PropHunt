@@ -10,7 +10,7 @@ function PlayerExt:Blind(bool)
 		return
 	end
 	
-	LocalPlayer():SetNWBool("blind", bool)
+	self:SetNWBool("blind", bool)
 end
 
 // Remove the child prop
