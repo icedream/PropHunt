@@ -7,25 +7,15 @@ Originally made for TF2.
 
 ## Dedicated server FAQ
 
-Q: How do I configure this gamemode for my own server?
-A: See gamemodes/prop_hunt/sh_config.lua.
-
-Q: How do I use the fretta map vote?
-A: Fretta map/gamemode voting is enabled by default. You can disable it via cvars though.
+- _How do I configure this gamemode for my own server?_ See gamemodes/prop_hunt/sh_config.lua.
+- _How do I use the fretta map vote?_ Fretta map/gamemode voting is enabled by default. You can disable it via cvars though. Fretta gamemode will ask all users after the last round to vote for a gamemode and a map automatically. It works just out of the box. :P
 
 ## Player FAQ
 
-Q: How do I disguise as a prop? 
-A: First you need to be in the prop team. You need also a map with props, an when you are in front of it, press 'E'. 
-
-Q: How do I change to another team?
-A: Just press 'F2'
-
-Q: How do I play a taunt?
-A: Just press 'F3'
-
-Q: How do I play the game? 
-A: You need at least one player for team (Props and Hunters). The props (initially with the Dr. Kleiner's skin) need to find a prop in a map and press 'E' to disguise as a prop. The Hunters need to fund props, and kill them. If a hunter shoot at the enemy team, he will gain life, else it will lost life. 
+- _How do I disguise as a prop?_ First you need to be in the prop team. You need also a map with props, an when you are in front of it, press 'E'. 
+- _How do I change to another team?_ Just press 'F2'
+- _How do I play a taunt?_ Just press 'F3'
+- _How do I play the game?_ You need at least one player for team (Props and Hunters). The props (initially with the Dr. Kleiner's skin) need to find a prop in a map and press 'E' to disguise as a prop. The Hunters need to fund props, and kill them. If a hunter shoot at the enemy team, he will gain life, else it will lost life. 
 
 ## Credits
 
