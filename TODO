@@ -1,3 +1,4 @@
 - BUG: No death sound playing for normally dying props
 - FEATURE: Disable special props for only the first X minutes of round
 - FEATURE: Disable special props for the last X minutes of round
+- FEATURE: Make this workshop-compatible. (Milestone)

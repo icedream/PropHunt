@@ -34,6 +34,10 @@ Originally written and released by Darkimmortal (TF2), ported by Andrew Theis, p
 
 Tested on Windows, Mac and Ubuntu Linux. 
 
+## License
+
+This work is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported license](http://creativecommons.org/licenses/by-nc-sa/3.0/), the same license as the original.
+
 ## Dependencies
 
 This mod requires this to be installed _on both, server and client_:
