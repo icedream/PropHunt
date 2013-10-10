@@ -97,6 +97,7 @@ PropHunt.Sounds.Taunt.Hunters = {
 	"taunts/hunters/ih000Aa.mp3",
 	"taunts/hunters/ih000Ba.mp3",
 	"taunts/hunters/ih000C.mp3",
+	"taunts/hunters/ih000D.mp3",
 }
 
 // Taunt sounds for props
