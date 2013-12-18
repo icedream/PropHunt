@@ -80,15 +80,6 @@ PropHunt.Sounds.Death.Props = {
 	"player/death/props/ih0002.mp3",
 }
 
-// Pop sounds for when the props switch
-PropHunt.Sounds.Pop.Props = {
-	"effect/pop1a.mp3",
-	"effect/pop2a.mp3",
-	"effect/pop3a.mp3",
-	"effect/pop4a.mp3",
-	"effect/pop5a.mp3",
-}
-
 // Taunt sounds for hunters
 PropHunt.Sounds.Taunt.Hunters = {
 	--"taunts/you_dont_know_the_power.wav",

@@ -138,34 +138,30 @@ function GM:CalcView(pl, origin, angles, fov)
  	view.angles = angles 
  	view.fov = fov 
  	
- 	// Give the active weapon a go at changing the viewmodel position 
 	if pl:Team() == PropHunt.TeamIDs.Props && pl:Alive() then
-		view.origin = origin + Vector(0, 0, hullz - 60) + (angles:Forward() * -80)
-	else
-	 	local wep = pl:GetActiveWeapon() 
-	 	if wep && wep != NULL then 
-	 		local func = wep.GetViewModelPosition 
-	 		if func then 
-	 			view.vm_origin, view.vm_angles = func(wep, origin*1, angles*1) // Note: *1 to copy the object so the child function can't edit it. 
-	 		end
-	 		 
-	 		local func = wep.CalcView 
-	 		if func then 
-	 			view.origin, view.angles, view.fov = func(wep, pl, origin*1, angles*1, fov) // Note: *1 to copy the object so the child function can't edit it. 
-	 		end 
-	 	end
+		return // already handled by disguiser weapon
+	end
+	
+ 	// Give the active weapon a go at changing the viewmodel position 
+	local wep = pl:GetActiveWeapon() 
+	if wep && wep != NULL then 
+		local func = wep.GetViewModelPosition 
+		if func then 
+			view.vm_origin, view.vm_angles = func(wep, origin*1, angles*1) // Note: *1 to copy the object so the child function can't edit it. 
+		end
+		 
+		local func = wep.CalcView 
+		if func then 
+			view.origin, view.angles, view.fov = func(wep, pl, origin*1, angles*1, fov) // Note: *1 to copy the object so the child function can't edit it. 
+		end 
 	end
  	
  	return view 
 end
 
 function GM:PostDrawViewModel( vm, ply, weapon )
-
 	if ( weapon.UseHands || !weapon:IsScripted() ) then
-
 		local hands = LocalPlayer():GetHands()
 		if ( IsValid( hands ) ) then hands:DrawModel() end
-
 	end
-
 end

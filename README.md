@@ -3,7 +3,9 @@
 This is a partially incomplete fork of Prop Hunt by Icedream which is running on the insane-Heroes Prop Hunt servers!
 
 PropHunt plays much like a Hide and Seek. Players on the RED team, disguised as props, are given a 30 second set up time to hide, and afterwards players on the BLU team attempt to find and kill them in the allotted time period. At the end of each round the teams are swapped; the Hunters (BLU) become the Hunted (RED) and vice versa. Respawns are not permitted until the end of each round. 
-Originally made for TF2. 
+Originally made for TF2.
+
+Tested on Windows, Mac and Linux.
 
 ## Dedicated server FAQ
 
@@ -22,7 +24,12 @@ Originally made for TF2.
 Credit goes for the original authors of both gamemodes and who made Prop Hunt compatible with GMOD 13. 
 Originally written and released by Darkimmortal (TF2), ported by Andrew Theis, ported by Kow@lski, edited and partially improved by Icedream.
 
-Tested on Windows, Mac and Ubuntu Linux. 
+Thanks to these guys who put their sound work under Creative Commons, too!
+
+- `sound/weapons/disguiser/pop*.mp3`: cfork from freesound.org - http://www.freesound.org/people/cfork/
+- `sound/weapons/disguiser/shot1.mp3`: ejfortin from freesound.org - http://freesound.org/people/ejfortin/sounds/49678/
+
+Dudes, freesound is a really nice source of sounds.
 
 ## License
 

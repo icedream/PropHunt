@@ -19,28 +19,3 @@ usermessage.Hook("PlayerPropSuicide", function(um)
 	end
 	GAMEMODE:AddPlayerAction(pl, "died for all the innocent props they hurt")
 end)
-
-// Shows when a player tries to use a banned prop
-usermessage.Hook("PlayerUseBannedProp", function(um)
-	surface.PlaySound("resource/warning.wav")
-	chat.AddText(Color(255,0,0),"You can not use this prop, it has been banned by the server.")
-end)
-
-// Resets the player hull
-usermessage.Hook("ResetHull", function(um)
-	if LocalPlayer() && LocalPlayer():IsValid() then
-		LocalPlayer():ResetHull()
-		hullz = 80
-	end
-end)
-
-// Sets the player hull
-usermessage.Hook("SetHull", function(um)
-	hullxy = um:ReadLong()
-	hullz = um:ReadLong()
-	new_health = um:ReadLong()
-	
-	LocalPlayer():SetHull(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
-	LocalPlayer():SetHullDuck(Vector(hullxy * -1, hullxy * -1, 0), Vector(hullxy, hullxy, hullz))
-	LocalPlayer():SetHealth(new_health)
-end)

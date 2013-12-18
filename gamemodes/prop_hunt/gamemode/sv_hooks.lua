@@ -22,6 +22,7 @@ hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", function(ent, dmginfo)
 	end
 end)
 
+// Hands patch
 hook.Add("PlayerSetModel", "PH_DrawHands", function(ply)
 	if(ply:Team() != PropHunt.TeamIDs.Hunters) then return end
 
@@ -35,11 +36,6 @@ hook.Add("PlayerSetModel", "PH_DrawHands", function(ply)
 
 		-- Which hands should we use?
 		local cl_playermodel = "combine" or ply:GetInfo( "cl_playermodel" ) or ply:GetModel() or nil
-		if(cl_playermodel == nil) then
-			GAMEMODE:LogO("Using hands for playermodel <default>", "PH_DrawHands", ply)
-		else
-			GAMEMODE:LogO("Using hands for playermodel "..cl_playermodel, "PH_DrawHands", ply)
-		end
 		local info = player_manager.TranslatePlayerHands( cl_playermodel )
 		if ( info ) then
 			hands:SetModel( info.model )
@@ -62,18 +58,20 @@ end)
 hook.Add("Initialize", "PH_Initialize", function()
 	GAMEMODE:LogF("Disabling flashlight", "PH_Initialize")
 	game.ConsoleCommand("mp_flashlight 0\n")
+	return true
 end)
 
 // Called when a player leaves
 hook.Add("PlayerDisconnected", "PH_PlayerDisconnected", function(pl)
 	GAMEMODE:LogO("Player disconnected", "PH_PlayerDisconnected", pl)
-	pl:RemoveProp()
+	return true
 end)
 
 // Called when a player connects
 hook.Add("PlayerAuthed", "PH_PlayerAuthed", function(pl,stid,unid)
 	GAMEMODE:LogO("Player authenticated, disabling crosshair", "PH_PlayerAuthed", pl)
 	pl:CrosshairDisable()
+	return true
 end)
 
 // Called when the players spawns
@@ -82,7 +80,6 @@ hook.Add("PlayerSpawn", "PH_PlayerSpawn", function(pl)
 
 	//pl:CrosshairDisable()
 	pl:Blind(false)
-	pl:RemoveProp()
 	pl:SetColor( Color(255, 255, 255, 255))
 	pl:SetRenderMode( RENDERMODE_TRANSALPHA )
 	pl:UnLock()
@@ -93,6 +90,7 @@ hook.Add("PlayerSpawn", "PH_PlayerSpawn", function(pl)
 	umsg.End()
 	
 	pl:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
+	return true
 end)
 
 // Removes all weapons on a map

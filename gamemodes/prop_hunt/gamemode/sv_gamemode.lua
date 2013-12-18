@@ -16,11 +16,7 @@ end
 
 // Called when player tries to pickup a weapon
 function GM:PlayerCanPickupWeapon(pl, ent)
- 	if pl:Team() != PropHunt.TeamIDs.Hunters then
-		return false
-	end
-	
-	return true
+ 	return pl:Team() == PropHunt.TeamIDs.Hunters
 end
 
 // Called when player needs a model
@@ -39,52 +35,18 @@ end
 // Called when a player tries to use an object
 function GM:PlayerUse(pl, ent)
 	if !pl:Alive() || pl:Team() == TEAM_SPECTATOR then return false end
-	if pl:Team() == PropHunt.TeamIDs.Props && pl:IsOnGround() && !pl:Crouching() && table.HasValue(PropHunt.UsablePropEntities, ent:GetClass()) && ent:GetModel() then
-		if table.HasValue(PropHunt.BannedPropModels, ent:GetModel()) then
-			if pl.lastBannedPropModel != ent:GetModel() || pl.lastBannedPropTime == nil || pl.lastBannedPropTime + 2 < CurTime() then
-				pl.lastBannedPropTime = CurTime()
-				pl.lastBannedPropModel = ent:GetModel()
-				umsg.Start("PlayerUseBannedProp", pl)
-				umsg.End()
+	if pl:Team() == PropHunt.TeamIDs.Props then
+		// Use disguiser weapon instead
+		local weapon = pl:GetWeapon()
+		for k, bannedProp in PropHunt.BannedPropModels do
+			if !weapon:HasPropConfig(bannedProp) then
+				weapon.PropConfiguration[bannedProp] = { Banned = true }
+			else
+				weapon.PropConfiguration[bannedProp].Banned = true
 			end
-		elseif ent:GetPhysicsObject():IsValid() && pl.ph_prop:GetModel() != ent:GetModel() then
-			local ent_health = math.Clamp(ent:GetPhysicsObject():GetVolume() / 250, 1, 200)
-			local new_health = math.Clamp((pl.ph_prop.health / pl.ph_prop.max_health) * ent_health, 1, 200)
-			local per = pl.ph_prop.health / pl.ph_prop.max_health
-			pl.ph_prop.health = new_health
-			
-			pl.ph_prop.max_health = ent_health
-			pl.ph_prop:SetModel(ent:GetModel())
-			pl.ph_prop:SetSkin(ent:GetSkin())
-			pl.ph_prop:SetSolid(SOLID_BSP) -- TODO: What would happen if we remove this??
-			pl.ph_prop:SetPos(pl:GetPos() - Vector(0, 0, ent:OBBMins().z - 1))
-			pl.ph_prop:SetAngles(pl:GetAngles())
-
-			local team=pl:GetPlayerClass()
-			team:PlayPopSound(pl)
-			
-			local hullxymax = math.Round(math.Max(ent:OBBMaxs().x, ent:OBBMaxs().y))
-			local hullxymin = hullxymax * -1
-			local hullz = math.Round(ent:OBBMaxs().z)
-			
-			pl:SetHull(Vector(hullxymin, hullxymin, 0), Vector(hullxymax, hullxymax, hullz))
-			pl:SetHullDuck(Vector(hullxymin, hullxymin, 0), Vector(hullxymax, hullxymax, hullz))
-			pl:SetHealth(new_health)
-			
-			umsg.Start("SetHull", pl)
-			umsg.Long(hullxymax)
-			umsg.Long(hullz)
-			umsg.Short(new_health)
-			umsg.End()
 		end
+		weapon:CallOnClient("PrimaryAttack", nil)
 	end
-	
-	// Prevent the door exploit
-	if table.HasValue(PropHunt.ExploitableDoors, ent:GetClass()) && pl.last_door_time && pl.last_door_time + 1 > CurTime() then
-		return false
-	end
-	
-	pl.last_door_time = CurTime()
 	return true
 end
 
@@ -116,11 +78,7 @@ function GM:ShowSpare1(pl)
 
 				if rand_taunt != nil then
 					GAMEMODE:LogO("Playing taunt sound "..rand_taunt, "GM:ShowSpare1", pl)
-					if pl:Team() == PropHunt.TeamIDs.Hunters then
-						pl:EmitSound(rand_taunt, 100)
-					else
-						pl:EmitPropSound(rand_taunt, 100)
-					end
+					pl:EmitSound(rand_taunt, 100)
 				end
 			else
 				GAMEMODE:LogO("Can't play taunt sound, empty sounds array for team", "GM:ShowSpare1", pl)
@@ -207,10 +165,8 @@ function GM:Think()
 	// Unlimited ammo
 	for _, ply in ipairs( player.GetAll() ) do
 		if ( ply:Alive() and ply:GetActiveWeapon() != NULL ) then
-
 			local wep = ply:GetActiveWeapon()
-
-			// Refill weapons
+			// Filter
 			if PropHunt.UnlimitedAmmo && !!wep && wep:IsWeapon() then
 				if PropHunt.UnlimitedGrenades || (!string.find(wep:GetClass(), "grenade") && !string.find(wep:GetClass(), "flash") && !string.find(wep:GetClass(), "frag")) then
 					ply:GiveAmmo(9999, wep:GetPrimaryAmmoType(), false)
@@ -220,11 +176,8 @@ function GM:Think()
 				if string.find(wep:GetClass(), "grenade") || string.find(wep:GetClass(), "flash") || string.find(wep:GetClass(), "frag") then
 					ply:GiveAmmo(9999, wep:GetPrimaryAmmoType(), false)
 				end
-
 				ply:GiveAmmo(9999, wep:GetSecondaryAmmoType(), false)
 			end
-
-
-                end
-        end
+		end
+	end
 end
