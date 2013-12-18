@@ -3,6 +3,7 @@ AddCSLuaFile() // shared file
 // Empty objects for configuration file
 PropHunt = {}
 PropHunt.Sounds = {}
+PropHunt.Sounds.Pop = {}
 PropHunt.Sounds.Loss = {}
 PropHunt.Sounds.Victory = {}
 PropHunt.Sounds.Taunt = {}

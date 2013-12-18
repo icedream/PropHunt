@@ -289,10 +289,10 @@ function GM:ShowTeam()
 				btn.m_colBackground = TeamInfo.Color
 				btn.Think = function( self ) 
 								self:SetText( Format( "%s (%i)", strName, team.NumPlayers( ID ) ))
-								self:SetDisabled( GAMEMODE:TeamHasEnoughPlayers( ID ) ) 
+								self:SetDisabled( ID != TEAM_SPECTATOR && GAMEMODE:TeamHasEnoughPlayers( ID ) ) 
 							end
 				
-				if (  IsValid( LocalPlayer() ) && LocalPlayer():Team() == ID ) then
+				if ( IsValid( LocalPlayer() ) && LocalPlayer():Team() == ID ) then
 					btn:SetDisabled( true )
 				end
 				

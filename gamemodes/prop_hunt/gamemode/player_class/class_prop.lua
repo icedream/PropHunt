@@ -13,6 +13,7 @@ CLASS.FullRotation			= false
 CLASS.JumpPower				= 200
 CLASS.DeathSounds			= PropHunt.Sounds.Death.Props
 CLASS.TauntSounds			= PropHunt.Sounds.Taunt.Props
+CLASS.PopSounds				= PropHunt.Sounds.Pop.Props
 
 // Called by spawn and sets loadout
 function CLASS:Loadout(pl)
@@ -84,6 +85,22 @@ function CLASS:OnDeath(pl, attacker, dmginfo)
 	pl:RemoveProp()
 end
 
+function CLASS:GetRandomPopSound()
+	local PopSound = nil
+	
+	while
+		(table.Count(self.PopSounds) > 1 && !PopSound)
+		|| (PopSound != nil && (PopSound == self.LastPopSound))
+	do
+		PopSound = table.Random(self.PopSounds)
+	end
+
+	self.LastPopSound = PopSound
+
+	return PopSound
+end
+
+
 function CLASS:GetRandomDeathSound()
 	local DeathSound = nil
 	
@@ -98,6 +115,19 @@ function CLASS:GetRandomDeathSound()
 
 	return DeathSound
 end
+
+function CLASS:PlayPopSound(pl)
+	local soundn = self:GetRandomPopSound()
+	if soundn == nil then
+		GAMEMODE:LogO("Got no sound from random function, aborting pop sound playback", "CLASS:PlayPopSound", pl)
+		return
+	end
+	//pl:StopSound()
+	//if pl.ph_prop != nil && pl.ph_prop:IsValid() then pl.ph_prop:StopSound() end
+	GAMEMODE:LogO("Playing pop sound "..soundn, "CLASS:PlayPopSound", pl)
+	sound.Play(soundn, pl:GetPos())
+end
+
 
 function CLASS:PlayDeathSound(pl)
 	local soundn = self:GetRandomDeathSound()

@@ -36,6 +36,13 @@ end
 
 // Called internally by PropHunt to log things
 function GM:LogO(log, fn, obj)
+	if obj == nil then
+		obj = {}
+		obj.Name = function() return "nil" end
+	end
+	if fn == nil then
+		return
+	end
 	if obj["Name"] == nil then
 		if obj["GetName"] == nil then
 			GAMEMODE:LogF(log, obj.."->"..fn)

@@ -59,6 +59,9 @@ function GM:PlayerUse(pl, ent)
 			pl.ph_prop:SetSolid(SOLID_BSP) -- TODO: What would happen if we remove this??
 			pl.ph_prop:SetPos(pl:GetPos() - Vector(0, 0, ent:OBBMins().z - 1))
 			pl.ph_prop:SetAngles(pl:GetAngles())
+
+			local team=pl:GetPlayerClass()
+			team:PlayPopSound(pl)
 			
 			local hullxymax = math.Round(math.Max(ent:OBBMaxs().x, ent:OBBMaxs().y))
 			local hullxymin = hullxymax * -1
@@ -141,6 +144,9 @@ end
 
 // Called before start of round
 function GM:OnPreRoundStart(num)
+
+	UTIL_StripAllPlayers()
+
 	GAMEMODE:Log("Cleaning up map...")
 	game.CleanUpMap()
 
@@ -163,9 +169,6 @@ function GM:OnPreRoundStart(num)
 		end
 	end
 
-	GAMEMODE:Log("Preparing players...")
-
-	UTIL_StripAllPlayers()
 	UTIL_SpawnAllPlayers()
 	UTIL_FreezeAllPlayers()
 
@@ -201,7 +204,7 @@ function GM:Think()
 
 	self.BaseClass:Think()
 
-	// Unlimited ammo for all weapons EXCEPT grenades
+	// Unlimited ammo
 	for _, ply in ipairs( player.GetAll() ) do
 		if ( ply:Alive() and ply:GetActiveWeapon() != NULL ) then
 

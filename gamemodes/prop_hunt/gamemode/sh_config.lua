@@ -80,6 +80,15 @@ PropHunt.Sounds.Death.Props = {
 	"player/death/props/ih0002.mp3",
 }
 
+// Pop sounds for when the props switch
+PropHunt.Sounds.Pop.Props = {
+	"effect/pop1a.mp3",
+	"effect/pop2a.mp3",
+	"effect/pop3a.mp3",
+	"effect/pop4a.mp3",
+	"effect/pop5a.mp3",
+}
+
 // Taunt sounds for hunters
 PropHunt.Sounds.Taunt.Hunters = {
 	--"taunts/you_dont_know_the_power.wav",
@@ -188,6 +197,14 @@ PropHunt.Sounds.Taunt.Props = {
 	"taunts/props/ih004D.mp3",
 	"taunts/props/ih004E.mp3",
 	"taunts/props/ih004F.mp3",
+	"taunts/props/ih0050.mp3",
+	"taunts/props/ih0051.mp3",
+	"taunts/props/ih0052.mp3",
+	"taunts/props/ih0053.mp3",
+	"taunts/props/ih0054.mp3",
+	"taunts/props/ih0055.mp3",
+	"taunts/props/ih0056.mp3",
+
 	--"taunts/you_dont_know_the_power.mp3",
 	--"taunts/you_underestimate_the_power.mp3"
 }
