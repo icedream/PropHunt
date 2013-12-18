@@ -1,25 +1,23 @@
-"Gamemode"
+"prop_hunt"
 {
-	"base"		"base"
-	"title"		"Prop Hunt"
-	"maps"          "^cs_|^de_|^ph_"
-
-	"fretta_maps"
-        {
-                "1"     "cs_"
-                "2"     "de_"
-                "3"	"ph_"
-		"4"	"housewithgarden"
-        }
-        "selectable"            "1"
-        
+	"base"			"base"
+	"title"			"Prop Hunt v2"
+	"maps"			"^cs_|^de_|^ph_"
 	"menusystem"	"1"
 	//"workshopid"	"135509255"
+	"selectable"	"1"
+
+	"fretta_maps"
+	{
+		"1"		"cs_"
+		"2"		"de_"
+		"3"		"ph_"
+		"4"		"housewithgarden"
+    }
 
 	"settings"
 	{
 		//For some reason these values do not create / update convars within the game. 
 		//You must manually set them via the console in order for them to change (similar to games like TTT)
 	}
-
 }

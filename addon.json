@@ -2,6 +2,7 @@
 	"title":		"Prop Hunt v3",
 	"type":			"gamemode",
 	"tags":			[ "fun", "comic" ],
+	"description":	"Hide'n'Seek for Garry's Mod!",
 	
 	"ignore": [
 		"*.git*"
