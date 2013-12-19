@@ -1,2 +1,10 @@
-include("sh_init.lua")
-include("sv_init.lua")
+include("shared/init.lua")
+include("server/init.lua")
+
+AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("client/init.lua")
+AddCSLuaFile("client/blindness.lua")
+AddCSLuaFile("client/fonts.lua")
+AddCSLuaFile("client/hud.lua")
+AddCSLuaFile("client/popups.lua")
+AddCSLuaFile("client/view.lua")
