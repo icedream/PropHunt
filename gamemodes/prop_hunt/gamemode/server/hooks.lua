@@ -49,13 +49,6 @@ hook.Add("PlayerSetModel", "PH_DrawHands", function(ply)
  	end
 end)
 
-// Called when the gamemode is initialized
-hook.Add("Initialize", "PH_Initialize", function()
-	GAMEMODE:LogF("Disabling flashlight", "PH_Initialize")
-	game.ConsoleCommand("mp_flashlight 0\n")
-	return true
-end)
-
 // Called when a player leaves
 hook.Add("PlayerDisconnected", "PH_PlayerDisconnected", function(pl)
 	GAMEMODE:LogO("Player disconnected", "PH_PlayerDisconnected", pl)

@@ -1,3 +1,5 @@
+if SERVER then AddCSLuaFile() end
+
 // Props underwater should die on this level
 last_hurt_interval = 0
 hook.Add("Think", "PH_DePort_Think", function()
