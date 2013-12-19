@@ -4,7 +4,7 @@ hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", function(ent, dmginfo)
 	
 	// TODO: Fix InRound()
 	if //GAMEMODE:InRound()
-		&& IsValid(ent) && !ent:IsPlayer()
+		/*&&*/ IsValid(ent) && !ent:IsPlayer()
 		&& IsValid(att) && att:IsPlayer() && att:Alive()
 	then
 		// Not-a-player penalty
