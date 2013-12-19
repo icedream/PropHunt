@@ -1,7 +1,7 @@
 AddCSLuaFile() // shared file
 
 // Fretta gamemode
-DeriveGamemode("fretta")
+DeriveGamemode("fretta13")
 
 // Empty objects for configuration file
 PropHunt = {}
