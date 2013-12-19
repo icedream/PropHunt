@@ -80,14 +80,10 @@ hook.Add("PlayerSpawn", "PH_PlayerSpawn", function(pl)
 
 	//pl:CrosshairDisable()
 	pl:Blind(false)
-	pl:SetColor( Color(255, 255, 255, 255))
+	pl:SetColor(Color(255, 255, 255, 255))
 	pl:SetRenderMode( RENDERMODE_TRANSALPHA )
 	pl:UnLock()
-	pl:ResetHull()
 	pl.last_taunt_time = 0
-
-	umsg.Start("ResetHull", pl)
-	umsg.End()
 	
 	pl:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
 	return true
