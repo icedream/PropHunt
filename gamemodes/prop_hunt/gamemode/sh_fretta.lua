@@ -1,14 +1,11 @@
 AddCSLuaFile() // Shared
 
-// Fretta gamemode
-DeriveGamemode("fretta")
-
 // Include the player classes
 IncludePlayerClasses()
 
 // Information about the gamemode
 --Metadata
-GM.Name				= "Prop Hunt"
+GM.Name				= "Prop Hunt v3"
 GM.Author			= "Icedream (original by AMT, port by Kow@lski)"
 GM.Email			= "icedream@modernminas.de"
 GM.Website			= "http://xspacesoft.github.io/PropHunt/"

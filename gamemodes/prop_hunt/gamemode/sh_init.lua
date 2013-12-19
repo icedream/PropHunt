@@ -1,5 +1,8 @@
 AddCSLuaFile() // shared file
 
+// Fretta gamemode
+DeriveGamemode("fretta")
+
 // Empty objects for configuration file
 PropHunt = {}
 PropHunt.Sounds = {}

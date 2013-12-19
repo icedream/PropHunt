@@ -135,27 +135,17 @@ function GM:OnPreRoundStart(num)
 
 end
 
-function GM:Initialize()
-
-	util.AddNetworkString("PlayableGamemodes")
-	
-	// If we're round based, wait at least 45 seconds before the first round starts
-	if GAMEMODE.RoundBased then
-		timer.Simple(PropHunt.PreStartTime, function() GAMEMODE:StartRoundBasedGameIfPlayersAvailable() end)
-	end
-	
-end
-
-function GM:StartRoundBasedGameIfPlayersAvailable()
+function GM:CanStartRound(iNum)
+	if (iNum > 1) then return true end
 	local hasHunter = false
 	local hasProp = false
 	local allowOneSided = PropHunt.CVars.AllowOneSided:GetBool()
 	for _, ply in ipairs(player.GetAll()) do
 		if ply:Team() == PropHunt.TeamIDs.Hunters then hasHunter = true end
 		if ply:Team() == PropHunt.TeamIDs.Props then hasProp = true end
-		if (!allowOneSided && hasHunter && hasProp) || (allowOneSided && (hasHunter || hasProp)) then GAMEMODE:StartRoundBasedGame() return end
+		if (!allowOneSided && hasHunter && hasProp) || (allowOneSided && (hasHunter || hasProp)) then return true end
 	end
-	timer.Simple(5, function() GAMEMODE:StartRoundBasedGameIfPlayersAvailable() end)
+	return false
 end
 
 function GM:Think()
