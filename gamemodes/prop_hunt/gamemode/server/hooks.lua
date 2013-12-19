@@ -2,7 +2,8 @@
 hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", function(ent, dmginfo)
 	local att = dmginfo:GetAttacker()
 	
-	if GAMEMODE:InRound()
+	// TODO: Fix InRound()
+	if //GAMEMODE:InRound()
 		&& IsValid(ent) && !ent:IsPlayer()
 		&& IsValid(att) && att:IsPlayer() && att:Alive()
 	then
