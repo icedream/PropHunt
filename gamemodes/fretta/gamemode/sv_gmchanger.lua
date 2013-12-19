@@ -5,7 +5,42 @@
 	want to override.
 */
 
+util.AddNetworkString("PlayableGamemodes")
+
 local g_PlayableGamemodes = {}
+
+fretta_votesneeded = CreateConVar( "fretta_votesneeded", "0.75", { FCVAR_ARCHIVE } )
+fretta_votetime = CreateConVar( "fretta_votetime", "20", { FCVAR_ARCHIVE } )
+fretta_votegraceperiod = CreateConVar( "fretta_votegraceperiod", "30", { FCVAR_ARCHIVE } )
+
+
+local function SendAvailableGamemodes( ply )
+
+	net.Start("PlayableGamemodes")
+		net.WriteTable(g_PlayableGamemodes)
+	net.Send(ply)
+	
+end
+
+function GetRandomGamemodeName()
+
+	return table.Random( g_PlayableGamemodes ).name
+	
+end
+
+function GetRandomGamemodeMap( gm )
+
+	return table.Random( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
+	
+end
+
+function GetNumberOfGamemodeMaps( gm )
+
+	return table.Count( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
+	
+end
+
+hook.Add( "PlayerInitialSpawn", "SendAvailableGamemodes", SendAvailableGamemodes ) 
 
 
 local AllMaps = file.Find( "maps/*.bsp", "GAME" )
@@ -65,42 +100,6 @@ for _, gm in pairs( engine.GetGamemodes() ) do
 end
 
 GameModes = nil
-
-
-fretta_votesneeded = CreateConVar( "fretta_votesneeded", "0.515", { FCVAR_ARCHIVE } )
-fretta_votetime = CreateConVar( "fretta_votetime", "20", { FCVAR_ARCHIVE } )
-fretta_votegraceperiod = CreateConVar( "fretta_votegraceperiod", "30", { FCVAR_ARCHIVE } )
-
-function GetRandomGamemodeName()
-
-	return table.Random( g_PlayableGamemodes ).id
-	
-end
-
-function GetRandomGamemodeMap( gm )
-
-	return table.Random( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
-	
-end
-
-function GetNumberOfGamemodeMaps( gm )
-
-	print(gm or GAMEMODE.FolderName)
-	print(g_PlayableGamemodes[ gm or GAMEMODE.FolderName ])
-	return table.Count( g_PlayableGamemodes[ gm or GAMEMODE.FolderName ].maps )
-	
-end
-
-
-local function SendAvailableGamemodes( ply )
-
-	net.Start("PlayableGamemodes")
-		net.WriteTable(g_PlayableGamemodes)
-	net.Send(ply)
-	
-end
-
-hook.Add( "PlayerInitialSpawn", "SendAvailableGamemodes", SendAvailableGamemodes ) 
 
 function GM:IsValidGamemode( gamemode, map )
 
@@ -237,8 +236,6 @@ end
 
 function GM:StartGamemodeVote()
 
-	print( table.Count(engine.GetGamemodes()) )
-
 	if( !GAMEMODE.m_bVotingStarted ) then
 	
 		if ( fretta_voting:GetBool() && table.Count(g_PlayableGamemodes) > 1 ) then
@@ -320,10 +317,7 @@ function GM:WorkOutWinningGamemode()
 	end
 
 	local winner = GAMEMODE:GetWinningWant()
-	if ( winner == nil ) then
-		print("No votes, selecting random gamemode.")
-		return GetRandomGamemodeName()
-	end
+	if ( !winner ) then return GetRandomGamemodeName() end
 	
 	return winner
 	
@@ -334,7 +328,7 @@ function GM:GetWinningMap( WinningGamemode )
 	if ( GAMEMODE.WinningMap ) then return GAMEMODE.WinningMap end
 
 	local winner = GAMEMODE:GetWinningWant()
-	if ( winner == nil ) then return GetRandomGamemodeMap( GAMEMODE.WinningGamemode ) end
+	if ( !winner ) then return GetRandomGamemodeMap( GAMEMODE.WinningGamemode ) end
 	
 	return winner
 	
@@ -343,7 +337,7 @@ end
 function GM:FinishGamemodeVote()
 	
 	GAMEMODE.WinningGamemode = GAMEMODE:WorkOutWinningGamemode()
-	--GAMEMODE:ClearPlayerWants()
+	GAMEMODE:ClearPlayerWants()
 	
 	// Send bink bink notification
 	BroadcastLua( "GAMEMODE:GamemodeWon( '"..GAMEMODE.WinningGamemode.."' )" );
@@ -351,8 +345,6 @@ function GM:FinishGamemodeVote()
 	// Start map vote..
 	timer.Simple( 2, function() GAMEMODE:StartMapVote() end )
 	
-	--SetGlobalBool( "InGamemodeVote", false )
-
 end
 
 function GM:FinishMapVote()
@@ -362,9 +354,6 @@ function GM:FinishMapVote()
 	
 	// Send bink bink notification
 	BroadcastLua( "GAMEMODE:ChangingGamemode( '"..GAMEMODE.WinningGamemode.."', '"..GAMEMODE.WinningMap.."' )" );
-	
-	--SetGlobalBool( "InGamemodeVote", false )
-
 
 	// Start map vote?
 	timer.Simple( 3, function() GAMEMODE:ChangeGamemode() end )

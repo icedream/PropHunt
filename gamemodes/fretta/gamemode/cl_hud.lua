@@ -170,7 +170,7 @@ function GM:UpdateHUD_Dead( bWaitingToSpawn, InRound )
 				return GetGlobalFloat( "RoundEndTime" )
 			end )
 			RoundTimer:SetLabel( "TIME" )
-			GAMEMODE:AddHUDItem( RoundTimer, 8 )
+		GAMEMODE:AddHUDItem( RoundTimer, 8 )
 		return
 	
 	end

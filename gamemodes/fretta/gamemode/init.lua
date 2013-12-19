@@ -51,9 +51,9 @@ function GM:Initialize()
 	end
 	*/
 	
-	// If we're round based, wait 5 seconds before the first round starts
+	// If we're round based, wait 3 seconds before the first round starts
 	if ( GAMEMODE.RoundBased ) then
-		timer.Simple( 5, function() GAMEMODE:StartRoundBasedGame() end )
+		timer.Simple( 3, function() GAMEMODE:StartRoundBasedGame() end )
 	end
 	
 	if ( GAMEMODE.AutomaticTeamBalance ) then
@@ -116,7 +116,7 @@ end
 ---------------------------------------------------------*/
 function GM:PlayerInitialSpawn( pl )
 
-	pl:SetTeam( TEAM_SPECTATOR )
+	pl:SetTeam( TEAM_UNASSIGNED )
 	pl:SetPlayerClass( "Spectator" )
 	pl.m_bFirstSpawn = true
 	pl:UpdateNameColor()
