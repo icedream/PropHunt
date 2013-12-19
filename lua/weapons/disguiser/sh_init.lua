@@ -24,8 +24,8 @@ SWEP.ViewModel = "models/weapons/c_toolgun.mdl" // won't be displayed anyways, s
 SWEP.WorldModel = "models/weapons/w_toolgun.mdl" // won't be displayed anyways, see Deploy
 
 // Precache models
-util.PrecacheModel( SWEP.ViewModel )
-util.PrecacheModel( SWEP.WorldModel )
+util.PrecacheModel(SWEP.ViewModel)
+util.PrecacheModel(SWEP.WorldModel)
 
 // Disable ammo system
 SWEP.Primary.ClipSize = -1

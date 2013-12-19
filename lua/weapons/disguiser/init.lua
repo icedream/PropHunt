@@ -8,8 +8,13 @@ SWEP.ShouldDropOnDie = false
 print("[Disguiser] Loading serverside...")
 
 // Downloads for the client
+// TODO: Dynamic file addition here
 AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("cl_3rdperson.lua")
+AddCSLuaFile("cl_obb.lua")
 AddCSLuaFile("sh_init.lua")
+
+// Shared stuff
 include("sh_init.lua")
 
 // Local stuff
@@ -21,27 +26,29 @@ SWEP.UndisguiseAsFullRotation = nil
 SWEP.DisguisedAs = nil
 
 // Banned prop models
-local PropConfiguration = {}
-PropConfiguration["models/props/cs_assault/dollar.mdl"] = {
-	Banned = true
-}
-PropConfiguration["models/props/cs_assault/money.mdl"] = {
-	Banned = true
-}
-PropConfiguration["models/props/cs_office/snowman_arm.mdl"] = {
-	Banned = true
-}
-PropConfiguration["models/props/cs_office/computer_mouse.mdl"] = {
-	Banned = true
-}
-PropConfiguration["models/props/cs_office/projector_remote.mdl"] = {
-	Banned = true
-}
-PropConfiguration["models/props_junk/bicycle01a.mdl"] = {
-	// The bicycle in cs_italy has a too big bounding box, you
-	// can't even get through doors without this correction
-	OBBMinsCorrection = Vector(28, -28, 0),
-	OBBMaxsCorrection = Vector(-28, 28, 0)
+SWEP.PropConfiguration = {
+	["models/props/cs_assault/dollar.mdl"] = {
+		Banned = true
+	},
+	["models/props/cs_assault/money.mdl"] = {
+		Banned = true
+	},
+	["models/props/cs_office/snowman_arm.mdl"] = {
+		Banned = true
+	},
+	["models/props/cs_office/computer_mouse.mdl"] = {
+		Banned = true
+	},
+	["models/props/cs_office/projector_remote.mdl"] = {
+		Banned = true
+	},
+	["models/props_junk/bicycle01a.mdl"] = {
+		// The bicycle in cs_italy has a too big bounding box, you
+		// can't even get through doors without this correction
+		OBBMinsCorrection = Vector(28, -28, 0),
+		OBBMaxsCorrection = Vector(-28, 28, 0)
+	}
+	// TODO: There is another item on cs_office which needs to be corrected. Forgot which one though.
 }
 
 // Door exploits
@@ -61,9 +68,10 @@ local UsablePropEntities = {
 function SWEP:Disguise(entity)
 	
 	// Make sure the model file is not banned
-	if self:HasPropConfig(model_file) && self:GetPropConfig(model_file).Banned then
+	if self:HasPropConfig(entity:GetModel()) && self:GetPropConfig(entity:GetModel()).Banned then
 		umsg.Start("cantDisguiseAsBannedProp")
 		umsg.End()
+		return
 	end
 	
 	// Make sure we are valid
@@ -112,15 +120,13 @@ function SWEP:Disguise(entity)
 	obbmaxs = obbmaxs + obbmargin
 	obbmins = obbmins - obbmargin
 	*/
-	if self:HasPropConfig(model_file) then
-		// Look for correction values
-		local pcfg = self:GetPropConfig(model_file)
-		if !!pcfg["OBBMaxsCorrection"] then
-			obbmaxs = obbmaxs + pcfg["OBBMaxsCorrection"]
-		end
-		if !!pcfg["OBBMinsCorrection"] then
-			obbmins = obbmins + pcfg["OBBMinsCorrection"]
-		end
+	// Look for correction values
+	local pcfg = self:GetPropConfig(entity:GetModel())
+	if !!pcfg["OBBMaxsCorrection"] then
+		obbmaxs = obbmaxs + pcfg["OBBMaxsCorrection"]
+	end
+	if !!pcfg["OBBMinsCorrection"] then
+		obbmins = obbmins + pcfg["OBBMinsCorrection"]
 	end
 	owner:SetHull(obbmins, obbmaxs)
 	owner:SetHullDuck(obbmins, obbmaxs) -- ducking shouldn't work for props
@@ -212,24 +218,36 @@ end
 
 // this is usually triggered on left mouse click
 function SWEP:PrimaryAttack()
-	self:DoShootEffect()
+	local trace = util.TraceLine({
+		start = self.Owner:GetShootPos(),
+		endpos = self.Owner:GetShootPos() + (self.Owner:GetAimVector() * 900 /* pretty cheaty */),
+		filter = self.Owner,
+		mask = MASK_SHOT
+	})
 	
-	local trace = self.Owner:GetEyeTrace()
-	self:DoShootEffect( trace.HitPos, trace.HitNormal, trace.Entity, trace.PhysicsBone, IsFirstTimePredicted() )
-
 	// Are we aiming at an actual prop?
 	local entity = trace.Entity
-	if (
-		!trace.Hit
+	if !trace.HitNonWorld
+		|| !trace.Entity
 		|| !entity:GetModel()
-		|| !table.HasValue(UsablePropEntities, entity:GetClass()) /* allowed prop class */
-		|| table.HasValue(ExploitableDoors, entity:GetClass()) /* banned door exploit */) then
+		//|| !table.HasValue(UsablePropEntities, entity:GetClass()) /* allowed prop class */
+		|| table.HasValue(ExploitableDoors, entity:GetClass()) /* banned door exploit */
+		then
 		// Undisguise instead
 		self:Undisguise()
 		return
 	end
 	
+	// Make sure the model is not banned
+	if self:GetPropConfig(entity:GetModel()).Banned then
+		umsg.Start("cantDisguiseAsBannedProp")
+		umsg.Entity(entity)
+		umsg.End()
+		return
+	end
+	
 	// Now let's disguise, shall we?
+	self:DoShootEffect(trace.HitPos, trace.HitNormal, trace.Entity, trace.PhysicsBone, IsFirstTimePredicted())
 	self:Disguise(entity)
 	
 end
@@ -349,12 +367,16 @@ hook.Add("PlayerDeath", "Disguiser.ThirdPersonDeath", function(victim, inflictor
 end)
 
 function SWEP:HasPropConfig(name)
-	return !!PropConfiguration && !!PropConfiguration[name]
+	print("HasPropConfig:")
+	print(" (" .. name ..")")
+	local result = !!self.PropConfiguration && !!self.PropConfiguration[name]
+	if result then print(" => yes") else print(" => no") end
+	return result
 end
 
 function SWEP:GetPropConfig(name)
-	if !PropConfiguration || !PropConfiguration[name] then return {} end
-	return PropConfiguration[name]
+	if !self:HasPropConfig(name) then return {} end
+	return self.PropConfiguration[name]
 end
 
 function SWEP:Deploy()
