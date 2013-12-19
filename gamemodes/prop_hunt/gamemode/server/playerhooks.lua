@@ -12,7 +12,9 @@ function GM:PlayerUse(pl, ent)
 	if pl:Team() == PH_TEAM_PROP then
 		// Use disguiser weapon instead
 		local weapon = pl:GetWeapon("disguiser")
-		weapon:CallOnClient("PrimaryAttack", nil)
+		if !!weapon then
+			weapon:CallOnClient("PrimaryAttack", nil)
+		end
 	end
 	
 	return true

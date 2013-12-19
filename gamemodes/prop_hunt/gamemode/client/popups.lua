@@ -4,7 +4,7 @@ usermessage.Hook("PlayerPropSuicide", function(um)
 	
 	// TODO: Stub AddPlayerAction
 	if !GAMEMODE.AddPlayerAction then
-		GAMEMODE.AddPlayerAction = print
+		GAMEMODE.AddPlayerAction = chat.AddText
 	end
 	
 	// Hunter anonymous?
