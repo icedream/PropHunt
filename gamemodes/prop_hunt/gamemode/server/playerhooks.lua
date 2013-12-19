@@ -22,7 +22,7 @@ function GM:PlayerJoinTeam(pl, teamID)
 	if teamID == TEAM_SPECTATOR then
 		return true
 	end
-	return self.Base:PlayerJoinTeam(pl, teamID)
+	return self.BaseClass:PlayerJoinTeam(pl, teamID)
 end
 
 function GM:PlayerSetModel(pl)
