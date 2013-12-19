@@ -1,18 +1,25 @@
 "prop_hunt"
 {
 	"base"			"base"
-	"title"			"Prop Hunt v2"
+	"title"			"Prop Hunt"
+	"version"		"2.0-alpha1"
 	"maps"			"^cs_|^de_|^ph_"
 	"menusystem"	"1"
 	//"workshopid"	"135509255"
-	"selectable"	"1"
+	
+	"author_name"	"Icedream"
+	"author_email"	"icedream@modernminas.de"
+	"author_url"	"http://github.com/icedream"
+	
+	"icon"			"icon24.png"
+	"info"			"Hide'n'seek for Garry's Mod!"
+	"hide"			"0"
 
 	"fretta_maps"
 	{
 		"1"		"cs_"
 		"2"		"de_"
 		"3"		"ph_"
-		"4"		"housewithgarden"
     }
 
 	"settings"
