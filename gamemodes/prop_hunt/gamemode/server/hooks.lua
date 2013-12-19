@@ -7,10 +7,11 @@ hook.Add("EntityTakeDamage", "PH_EntityTakeDamage", function(ent, dmginfo)
 		&& IsValid(att) && att:IsPlayer() && att:Alive()
 	then
 		// Not-a-player penalty
-		if (!!att:TeamData().NoPlayerHitPenalty)
+		if (!!att:TeamData().NoPlayerHitPenalty) then
 			att:SetHealth(att:Health() - att:TeamData().NoPlayerHitPenalty)
-		if att:Health() <= 0 then
-			att:KillSilent()
+			if att:Health() <= 0 then
+				att:KillSilent()
+			end
 		end
 	end
 end)
