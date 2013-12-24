@@ -1,4 +1,4 @@
-function GM:Log(...)
+function Log(...)
 	printResult = "[PH] "
 	for _, v in ipairs(arg) do
 		if IsValid(v) && !!v["Name"] then
@@ -11,7 +11,7 @@ function GM:Log(...)
 	print(printResult)
 end
 
-function GM:LogF(fn, ...)
+function LogF(fn, ...)
 	if !fn then fn = "<unknown>" end
 	GAMEMODE:Log(fn .. ":", arg)
 end
