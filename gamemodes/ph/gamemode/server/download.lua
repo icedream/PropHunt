@@ -1,4 +1,5 @@
 local function AddCSLuaFolder(fol)
+	GAMEMODE:LogF("AddCSLuaFolder", "Appending folder", fol)
 	fol = string.lower(fol)
 	local _, folders = file.Find(fol .. "*", "LUA")
 	for _, folder in SortedPairs(folders, true) do
@@ -11,7 +12,7 @@ local function AddCSLuaFolder(fol)
 	end
 end
 
-AddCSLuaFolder("cl_init.lua")
+AddCSLuaFile("cl_init.lua")
 AddCSLuaFolder("client/")
 AddCSLuaFolder("shared/")
 AddCSLuaFolder("shared/player_classes/")
