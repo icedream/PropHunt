@@ -1,15 +1,17 @@
 local function AddCSLuaFolder(fol)
-	fol = string.lower(fol)
-	local _, folders = file.Find(fol .. "*", "LUA")
-	for _, folder in SortedPairs(folders, true) do
-		if folder ~= ".." then
-			LogF("AddCSLuaFolder", "Appending folder ", fol .. folder .. "/")
-			for _, File in SortedPairs(file.Find(fol .. folder .."/*.lua", "LUA")) do
-				LogF("AddCSLuaFolder", "Appending file ", fol .. folder .. "/" .. File)
-				AddCSLuaFile(fol .. folder .. "/" ..File)
-			end
-		else
-			LogF("AddCSLuaFolder", "Not appending folder ", fol .. folder .. "/")
+	LogF("AddCSLuaFolder", "Appending folder ", fol .. "/")
+	
+	local files, folders = file.Find(fol .. "*.lua", "LUA")
+	LogF("AddCSLuaFolder", fol .. ":", "Found ", #files, " files and ", #folders, " folders")
+	
+	for _, File in SortedPairs(files) do
+		LogF("AddCSLuaFolder", "Appending file ", fol .. folder .. "/" .. File)
+		AddCSLuaFile(fol .. folder .. "/" ..File)
+	end
+	
+	for _, Folder in SortedPairs(folders, true) do
+		if Folder ~= ".." then
+			AddCSLuaFolder(fol .. "/" .. Folder)
 		end
 	end
 end
