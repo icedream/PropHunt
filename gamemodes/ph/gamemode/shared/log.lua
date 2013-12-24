@@ -13,5 +13,5 @@ end
 
 function LogF(fn, ...)
 	if !fn then fn = "<unknown>" end
-	GAMEMODE:Log(fn .. ":", arg)
+	Log(fn .. ":", arg)
 end
