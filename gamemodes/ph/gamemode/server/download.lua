@@ -2,10 +2,10 @@ local function AddCSLuaFolder(fol)
 	LogF("AddCSLuaFolder", "Appending folder ", fol .. "/")
 	
 	local files, folders = file.Find(fol .. "/*.lua", "LUA")
-	LogF("AddCSLuaFolder", fol .. ":", "Found ", #files, " files and ", #folders, " folders")
+	LogF("AddCSLuaFolder", fol .. ": ", "Found ", #files, " files and ", #folders, " folders")
 	
 	for _, File in SortedPairs(files) do
-		LogF("AddCSLuaFolder", "Appending file ", fol .. folder .. "/" .. File)
+		LogF("AddCSLuaFolder", fol .. ": ", "Appending file ", File)
 		AddCSLuaFile(fol .. folder .. "/" ..File)
 	end
 	
