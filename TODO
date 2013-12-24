@@ -1,7 +1,0 @@
-- BUG: No death sound playing for normally dying props
-- FEATURE: Disable special props for only the first X minutes of round
-- FEATURE: Disable special props for the last X minutes of round
-- FEATURE: Make this workshop-compatible. (Milestone)
-- FEATURE: Nagging about missing CS:S stuff.
-- FIX: Allow players to join spectator mode regardless of how many players are in it
-- FIX: Implement better prop hiding method, ideally making the player change itself. (Milestone)
