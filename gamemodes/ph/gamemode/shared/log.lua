@@ -1,9 +1,9 @@
 function Log(...)
 	Msg("[PH] ")
-	MsgN({...})
+	MsgN(...)
 end
 
 function LogF(fn, ...)
 	Msg("[PH] " .. (fn or "<unknown>") .. ": ")
-	MsgN({...})
+	MsgN(...)
 end

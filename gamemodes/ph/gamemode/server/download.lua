@@ -12,7 +12,7 @@ local function AddCSLuaFolder(fol)
 	end
 end
 
-AddCSLuaFile("cl_init.lua")
+AddCSLuaFile("../cl_init.lua")
 AddCSLuaFolder("client/")
 AddCSLuaFolder("shared/")
 AddCSLuaFolder("shared/player_classes/")
